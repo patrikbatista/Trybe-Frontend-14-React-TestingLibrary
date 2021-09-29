@@ -31,15 +31,18 @@ describe('01-  testa o componete App', () => {
 });
 
 test('02- testa se a aplicaçao é redirecionada para a pagina principal, ABOUT', () => {
-  const customHistory = createMemoryHistory();
-
   render(
-    <Router history={ customHistory }>
+    <MemoryRouter>
       <App />
-    </Router>,
+    </MemoryRouter>,
   );
 
-  customHistory.push('/about');
+  const aboutLink = screen.getByRole('link', {
+    name: 'About',
+  });
+  expect(aboutLink).toBeInTheDocument();
+
+  userEvent.click(aboutLink);
 
   const aboutText = screen.getByRole('heading', {
     level: 2,
@@ -49,21 +52,20 @@ test('02- testa se a aplicaçao é redirecionada para a pagina principal, ABOUT'
 });
 
 test('03- testa se a aplicaçao é redirecionada para a pagina, FAVORITE POKEMONS', () => {
-  const customHistory = createMemoryHistory();
-
   render(
-    <Router history={ customHistory }>
+    <MemoryRouter>
       <App />
-    </Router>,
+    </MemoryRouter>,
   );
-
-  customHistory.push('/favorites');
-
-  const favoritesText = screen.getByRole('heading', {
-    level: 2,
+  const favotiteLink = screen.getByRole('link', {
     name: /favorite pokémons/i,
   });
-  expect(favoritesText).toBeInTheDocument();
+  userEvent.click(favotiteLink);
+
+  const favoriteText = screen.getByRole('heading', {
+    name: /favorite pokémons/i,
+  });
+  expect(favoriteText).toBeInTheDocument();
 });
 
 test('04- testa se a aplicaçao é redirecionada para a pagina, NOT FOUND', () => {
