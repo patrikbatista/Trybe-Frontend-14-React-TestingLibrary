@@ -5,6 +5,7 @@ import { createMemoryHistory } from 'history';
 import userEvent from '@testing-library/user-event';
 
 import App from '../App';
+import pokemons from '../data';
 
 test('teste se é renderizado um card com as informações de determinado pokémon.', () => {
   const customHistory = createMemoryHistory();
@@ -16,9 +17,11 @@ test('teste se é renderizado um card com as informações de determinado pokém
   );
   customHistory.push('/');
 
+  const { name } = pokemons[0];
+
   const pokemonName = screen.getByTestId('pokemon-name');
   expect(pokemonName).toBeInTheDocument();
-  expect(pokemonName).toHaveTextContent('Pikachu');
+  expect(pokemonName).toHaveTextContent(name);
 
   const pokemonType = screen.getByTestId('pokemon-type');
   expect(pokemonType).toBeInTheDocument();
