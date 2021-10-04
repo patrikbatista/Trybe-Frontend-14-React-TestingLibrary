@@ -56,13 +56,16 @@ test('teste seção de mapas do pokemon', () => {
   const nameLocationOne = screen.getByText('Kanto Viridian Forest');
   expect(nameLocationOne).toBeInTheDocument();
 
-  const mapOne = screen.getAllByAltText('Pikachu location');
+  const pokemonLocation = 'Pikachu location';
+  const mapOne = screen.getAllByAltText(pokemonLocation);
 
-  mapOne.forEach((map) => {
-    expect(map).toBeInTheDocument();
-    expect(map).toHaveAttribute('alt', 'Pikachu location');
-    expect(map).toHaveAttribute('src', map.src);
-  });
+  expect(mapOne[0]).toBeInTheDocument();
+  expect(mapOne[0]).toHaveAttribute('alt', pokemonLocation);
+  expect(mapOne[0]).toHaveAttribute('src', 'https://cdn2.bulbagarden.net/upload/0/08/Kanto_Route_2_Map.png');
+
+  expect(mapOne[1]).toBeInTheDocument();
+  expect(mapOne[1]).toHaveAttribute('alt', pokemonLocation);
+  expect(mapOne[1]).toHaveAttribute('src', 'https://cdn2.bulbagarden.net/upload/b/bd/Kanto_Celadon_City_Map.png');
 
   const nameLocationTwo = screen.getByText('Kanto Power Plant');
   expect(nameLocationTwo).toBeInTheDocument();
